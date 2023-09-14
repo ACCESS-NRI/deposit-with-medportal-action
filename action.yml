@@ -1,9 +1,6 @@
 name: Deposit with Open Journals
 description: Deposit with Open Journals API call
 inputs:
-  journal_alias:
-    description: The alias of the Open Journal to deposit with
-    required: true
   journal_secret:
     description: The access token to be used to deposit the paper with the journal
     required: true
@@ -32,7 +29,6 @@ runs:
       id: theoj-deposit
       shell: bash
       env:
-        JOURNAL_ALIAS: ${{ inputs.journal_alias }}
         JOURNAL_SECRET: ${{ inputs.journal_secret }}
         ISSUE_ID: ${{ inputs.issue_id }}
         PAPER_PATH: ${{ inputs.paper_path }}
