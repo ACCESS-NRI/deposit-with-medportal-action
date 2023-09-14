@@ -38,7 +38,7 @@ deposit_url = "https://medportal-dev-6a745f452687.herokuapp.com/papers/api_depos
 doi = "10.21105/medportal.#{issue_id}"
 title = SecureRandom.hex
 
-def metadata_payload
+def metadata_payload(title, issue_id, doi)
   {
     paper: {
       title: title,
@@ -73,10 +73,10 @@ def metadata_payload
   }.to_json
 end
 
-def deposit_payload
+def deposit_payload(title, issue_id, doi)
   {
     id: issue_id,
-    metadata: Base64.encode64(metadata_payload),
+    metadata: Base64.encode64(metadata_payload(title, issue_id, doi)),
     doi: doi,
     archive_doi: doi,
     citation_string: "Proft et al., (2023). Gala: A Python package for galactic dynamics. ACCESS-NRI MedPortal, 1(1), 73, https://doi.org/10.21105/medportal.00073",
@@ -84,12 +84,12 @@ def deposit_payload
   }
 end
 
-def deposit!(secret)
-  parameters = deposit_payload.merge(secret: secret)
+def deposit!(secret, deposit_url, title, issue_id, doi)
+  parameters = deposit_payload(title, issue_id, doi).merge(secret: secret)
   Faraday.post(deposit_url, parameters.to_json, {"Content-Type" => "application/json"})
 end
 
-deposit_call = deposit!(journal_secret)
+deposit_call = deposit!(journal_secret, deposit_url, title, issue_id, doi)
 
 if deposit_call.status.between?(200, 299)
   system("echo 'Journal responded. Deposit looks good'")
