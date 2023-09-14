@@ -64,11 +64,11 @@ def metadata_payload
       archive_doi: doi,
       repository_address: 'https://github.com/max-anu/example-medportal1',
       editor: "@max-anu",
-      reviewers: ["@max-anu",]
+      reviewers: ["@max-anu",],
       volume: 1,
       issue: issue_id,
       year: 2023,
-      page: issue_id
+      page: issue_id,
     }
   }.to_json
 end
@@ -79,8 +79,8 @@ def deposit_payload
     metadata: Base64.encode64(metadata_payload),
     doi: doi,
     archive_doi: doi,
-    citation_string: "Proft et al., (2023). Gala: A Python package for galactic dynamics. ACCESS-NRI MedPortal, 1(1), 73, https://doi.org/10.21105/medportal.00073"
-    title: title
+    citation_string: "Proft et al., (2023). Gala: A Python package for galactic dynamics. ACCESS-NRI MedPortal, 1(1), 73, https://doi.org/10.21105/medportal.00073",
+    title: title,
   }
 end
 
